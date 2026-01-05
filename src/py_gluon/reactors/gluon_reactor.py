@@ -1,40 +1,71 @@
-"""Gluon Reactor abstract base class."""
-
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Tuple
 
+from .types import *
 
+    
 class GluonReactor(ABC):
-    """Abstract base class for Gluon Reactors.
-
-    Subclasses must implement all abstract methods.
-    """
-    def __init__(self) -> None:
-        #TODO
-        ... 
-        
+    
+    @property
     @abstractmethod
-    def initialize(self) -> None:
-        """Initialize the reactor."""
-        #TODO
+    def parameters(self) -> GluonReactorParameters:
+        ...
+    
+    @property
+    @abstractmethod
+    def state(self) -> GluonReactorState:
+        ...
+    
+    @abstractmethod
+    def neutron_ratio(self, neutron_target_price: BasecoinsPerNeutrons) -> float:
+        ...
+    
+    @abstractmethod
+    def normalized_neutron_ratio(self, neutron_target_price: BasecoinsPerNeutrons) -> float:
+        ...
+    
+    @abstractmethod
+    def neutron_price(self, neutron_target_price: BasecoinsPerNeutrons) -> BasecoinsPerNeutrons:
         ...
         
     @abstractmethod
-    def fission(self) -> None:
-        #TODO 
+    def proton_price(self, neutron_target_price: BasecoinsPerNeutrons) -> BasecoinsPerProtons:
         ...
         
     @abstractmethod
-    def fusion(self) -> None:
-        #TODO
+    def fission(self, basecoins: Basecoin) -> Tokeons:
+        ...
+            
+    @abstractmethod
+    def fusion(self, tokeons: Tokeons) -> Basecoin:
+        ...
+        
+    def neutron_volume(self, neutron_target_price: BasecoinsPerNeutrons, neutrons: Neutron) -> Basecoin:
+        return neutrons * self.neutron_price(neutron_target_price)
+    
+    def proton_volume(self, neutron_target_price: BasecoinsPerNeutrons, protons: Proton) -> Basecoin:
+        return protons * self.proton_price(neutron_target_price)
+    
+    @abstractmethod
+    def volume_delta(self, volume: Basecoin, reaction_time: float) -> Basecoin:
+        ...
+    
+    @abstractmethod
+    def beta_decay_plus_fee(self, reaction_time: float, volume: Basecoin) -> float:
         ...
         
     @abstractmethod
-    def beta_decay_plus(self) -> None:
-        #TODO
+    def beta_decay_minus_fee(self, reaction_time: float, volume: Basecoin) -> float:
+        ...
+        
+    @abstractmethod
+    def beta_decay_plus(self, neutron_target_price: BasecoinsPerNeutrons, reaction_time: float, protons: Proton) -> Neutron:
         ...
          
     @abstractmethod
-    def beta_decay_minus(self) -> None:
-        #TODO
+    def beta_decay_minus(self, neutron_target_price: BasecoinsPerNeutrons, reaction_time: float, neutrons: Neutron) -> Proton:
+        ...
+        
+    @abstractmethod
+    def execute(self, reaction: GluonReaction, balance: GluonUserState, neutron_target_price: Basecoin, reaction_time: float) -> Tuple[GluonUserState, GluonReactorState]:
         ...
