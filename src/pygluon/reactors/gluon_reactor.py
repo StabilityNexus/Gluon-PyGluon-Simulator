@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from .types import *
-    
+
 class GluonReactor(ABC):
     
     @property

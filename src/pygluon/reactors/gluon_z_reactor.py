@@ -143,4 +143,4 @@ class GluonZReactor(GluonReactor):
                self._state.prev_volume_delta = self.volume_delta(nv, reaction_time)
                self._state.prev_reaction_time = reaction_time
                
-               return GluonExecution(protons, self.state)          
+               return GluonExecution(protons, self.state)

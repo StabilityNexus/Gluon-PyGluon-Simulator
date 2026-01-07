@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 dependencies = []
 name = "pygluon"
-version = "0.2.0"
+version = "1.0.0"
 description = "Gluon simulator library for python."
 readme = "README.md"
 license = "MIT"
@@ -25,13 +25,13 @@ classifiers = [
 Homepage = "https://stability.nexus"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/py_gluon"]
+packages = ["src/pygluon"]
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["linux-64"]
 
 [tool.pixi.pypi-dependencies]
-py-gluon = { path = ".", editable = true }
+pygluon = { path = ".", editable = true }
 
 [tool.pixi.tasks]

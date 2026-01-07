@@ -2,11 +2,25 @@ from dataclasses import dataclass
 from typing import Sequence, Generic, TypeVar
 from enum import Enum, unique
 
-Basecoin = float
-Neutron = float
-Proton = float
-BasecoinsPerNeutrons = float
-BasecoinsPerProtons = float
+class Basecoin(float):
+    """Wrapper class for basecoin amounts."""
+    ...
+
+class Neutron(float):
+    """Wrapper class for neutron amounts."""
+    ...
+
+class Proton(float):
+    """Wrapper class for proton amounts."""
+    ...
+
+class BasecoinsPerNeutrons(float):
+    """Wrapper class for basecoin/neutron price ratios."""
+    ...
+
+class BasecoinsPerProtons(float):
+    """Wrapper class for basecoin/proton price ratios."""
+    ...
 
 @dataclass
 class Tokeons:
@@ -57,7 +71,3 @@ R = TypeVar("R", bound=GluonReactorState)
 class GluonExecution(Generic[R]):
     reactor_output: Tokeons | Basecoin | Neutron | Proton
     reactor_state: R
-
-@dataclass
-class GluonZExecution(GluonExecution[GluonZReactorState]):
-    ...
