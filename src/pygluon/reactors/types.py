@@ -2,25 +2,11 @@ from dataclasses import dataclass
 from typing import Sequence, Generic, TypeVar
 from enum import Enum, unique
 
-class Basecoin(float):
-    """Wrapper class for basecoin amounts."""
-    ...
-
-class Neutron(float):
-    """Wrapper class for neutron amounts."""
-    ...
-
-class Proton(float):
-    """Wrapper class for proton amounts."""
-    ...
-
-class BasecoinPerNeutron(float):
-    """Wrapper class for basecoin/neutron price ratios."""
-    ...
-
-class BasecoinPerProton(float):
-    """Wrapper class for basecoin/proton price ratios."""
-    ...
+Basecoin = float
+Neutron = float
+Proton = float
+BasecoinPerNeutron = float
+BasecoinPerProton = float
 
 @dataclass
 class Tokeons:

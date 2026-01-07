@@ -13,13 +13,9 @@ pip install pygluon
 ```python
 from pygluon.reactors import GluonZReactor
 from pygluon.reactors.types import (
-    Basecoin,
-    BasecoinPerNeutron,
     GluonReaction,
     GluonZReactorParameters,
     GluonZReactorState,
-    Neutron,
-    Proton,
     Tokeons,
 )
 
@@ -35,10 +31,10 @@ params = GluonZReactorParameters(
 
 # Initialize reactor state
 state = GluonZReactorState(
-    reserves=Basecoin(1000.0),
-    neutron_circulating_supply=Neutron(500.0),
-    proton_circulating_supply=Proton(500.0),
-    prev_volume_delta=Basecoin(0.0),
+    reserves=1000.0,
+    neutron_circulating_supply=500.0,
+    proton_circulating_supply=500.0,
+    prev_volume_delta=0.0,
     prev_reaction_time=0.0,
 )
 
@@ -48,8 +44,8 @@ reactor = GluonZReactor(params, state)
 # Execute a fission reaction (basecoins -> neutrons + protons)
 result = reactor.execute(
     GluonReaction.FISSION,
-    Basecoin(100.0),
-    BasecoinPerNeutron(1.0),
+    balance=100.0,
+    neutron_target_price=1.0,
     reaction_time=1.0,
 )
 print(f"Received: {result.reactor_output}")
@@ -67,14 +63,14 @@ The Gluon protocol supports four reaction types:
 
 ## Types
 
-The library uses wrapper classes for type safety:
+The library uses type aliases for documentation:
 
-- `Basecoin` - Reserve currency amounts
-- `Neutron` - Neutron token amounts
-- `Proton` - Proton token amounts
-- `BasecoinPerNeutron` - Price ratio (basecoin/neutron)
-- `BasecoinPerProton` - Price ratio (basecoin/proton)
-- `Tokeons` - A pair of neutrons and protons
+- `Basecoin` - Reserve currency amounts (`float`)
+- `Neutron` - Neutron token amounts (`float`)
+- `Proton` - Proton token amounts (`float`)
+- `BasecoinPerNeutron` - Price ratio (`float`)
+- `BasecoinPerProton` - Price ratio (`float`)
+- `Tokeons` - A dataclass containing neutrons and protons
 
 ## License
 
