@@ -14,11 +14,11 @@ class Proton(float):
     """Wrapper class for proton amounts."""
     ...
 
-class BasecoinsPerNeutrons(float):
+class BasecoinPerNeutron(float):
     """Wrapper class for basecoin/neutron price ratios."""
     ...
 
-class BasecoinsPerProtons(float):
+class BasecoinPerProton(float):
     """Wrapper class for basecoin/proton price ratios."""
     ...
 
