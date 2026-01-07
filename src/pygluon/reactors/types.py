@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Sequence
+from typing import Sequence, Generic, TypeVar
 from enum import Enum, unique
 
 Basecoin = float
@@ -50,3 +50,14 @@ class GluonReaction(Enum):
     BETA_DECAY_MINUS = 4
 
 GluonReactionSequence = Sequence[GluonReaction]
+
+R = TypeVar("R", bound=GluonReactorState)
+
+@dataclass
+class GluonExecution(Generic[R]):
+    reactor_output: Tokeons | Basecoin | Neutron | Proton
+    reactor_state: R
+
+@dataclass
+class GluonZExecution(GluonExecution[GluonZReactorState]):
+    ...

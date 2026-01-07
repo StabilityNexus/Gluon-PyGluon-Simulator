@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 dependencies = []
-name = "py-gluon"
+name = "pygluon"
 version = "0.2.0"
 description = "Gluon simulator library for python."
 readme = "README.md"

@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Tuple
 
 from .types import *
-
     
 class GluonReactor(ABC):
     
@@ -67,5 +65,5 @@ class GluonReactor(ABC):
         ...
         
     @abstractmethod
-    def execute(self, reaction: GluonReaction, balance: GluonUserState, neutron_target_price: Basecoin, reaction_time: float) -> Tuple[GluonUserState, GluonReactorState]:
+    def execute(self, reaction: GluonReaction, balance: Basecoin | Tokeons | Proton | Neutron, neutron_target_price: Basecoin, reaction_time: float) -> GluonExecution[R]:
         ...

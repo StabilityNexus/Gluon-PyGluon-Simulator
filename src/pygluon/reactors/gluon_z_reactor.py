@@ -87,51 +87,60 @@ class GluonZReactor(GluonReactor):
         
         return (1 - fee) * neutrons * (pn / pp)
     
-    def execute(self, reaction: GluonReaction, balance: GluonUserState, neutron_target_price: BasecoinsPerNeutrons, reaction_time: float) -> Tuple[GluonUserState, GluonZReactorState]:
+    def execute(self, reaction: GluonReaction, balance: Basecoin | Tokeons | Proton | Neutron, neutron_target_price: BasecoinsPerNeutrons, reaction_time: float) -> GluonExecution[GluonZReactorState]:
         
        match reaction:
            
            case GluonReaction.FISSION:
                
-               tokeons = self.fission(balance.basecoins)
+               assert(isinstance(balance, Basecoin))
                
-               self._state.reserves += balance.basecoins
+               tokeons = self.fission(balance)
+               
+               self._state.reserves += balance
                self._state.neutron_circulating_supply += tokeons.neutrons
                self._state.proton_circulating_supply += tokeons.protons
                
-               return (GluonUserState(0, tokeons.neutrons, tokeons.protons), self.state) 
+               return GluonExecution(tokeons, self.state) 
                              
            case GluonReaction.FUSION:
                
-               basecoins = self.fusion(Tokeons(balance.neutrons, balance.neutrons))
+               assert(isinstance(balance, Tokeons))
+               
+               basecoins = self.fusion(Tokeons(balance.neutrons, balance.protons))
                
                self._state.reserves -= basecoins
                self._state.neutron_circulating_supply -= balance.neutrons
                self._state.proton_circulating_supply -= balance.protons
                
-               return (GluonUserState(basecoins, 0, 0), self.state)
+               return GluonExecution(basecoins, self.state)
                
            case GluonReaction.BETA_DECAY_PLUS:
+               
+               assert(isinstance(balance, Proton))
                 
-               neutrons = self.beta_decay_plus(neutron_target_price, reaction_time, balance.protons)
+               neutrons = self.beta_decay_plus(neutron_target_price, reaction_time, balance)
                
                self._state.neutron_circulating_supply += neutrons
-               self._state.proton_circulating_supply -= balance.protons
+               self._state.proton_circulating_supply -= balance
                
-               pv = self.proton_volume(neutron_target_price, balance.protons)
+               pv = self.proton_volume(neutron_target_price, balance)
                self._state.prev_volume_delta = self.volume_delta(pv, reaction_time)
                self._state.prev_reaction_time = reaction_time
                
-               return (GluonUserState(0, neutrons, 0), self.state)            
+               return GluonExecution(neutrons, self.state)            
             
            case GluonReaction.BETA_DECAY_MINUS:
-               protons = self.beta_decay_minus(neutron_target_price, reaction_time, balance.neutrons)
                
-               self._state.neutron_circulating_supply -= balance.neutrons
+               assert(isinstance(balance, Neutron))
+               
+               protons = self.beta_decay_minus(neutron_target_price, reaction_time, balance)
+               
+               self._state.neutron_circulating_supply -= balance
                self._state.proton_circulating_supply += protons
                
-               nv = -1 * self.neutron_volume(neutron_target_price, balance.neutrons)
+               nv = -1 * self.neutron_volume(neutron_target_price, balance)
                self._state.prev_volume_delta = self.volume_delta(nv, reaction_time)
                self._state.prev_reaction_time = reaction_time
                
-               return (GluonUserState(0, 0, protons), self.state)          
+               return GluonExecution(protons, self.state)          
