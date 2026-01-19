@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 dependencies = []
 name = "pygluon"
-version = "1.0.1"
+version = "1.0.0"
 description = "Gluon simulator library for Python. Simulates the Gluon protocol's reactor mechanics including fission, fusion, and beta decay reactions."
 readme = "README.md"
 license = "MIT"
