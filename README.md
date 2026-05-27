@@ -1,18 +1,18 @@
-# pygluon
+# stability-nexus
 
-Gluon simulator library for Python. Simulates the Gluon protocol's reactor mechanics including fission, fusion, and beta decay reactions.
+Stability Nexus multi-protocol simulation library. Currently includes the Gluon protocol reactor simulation (fission, fusion, and beta decay reactions).
 
 ## Installation
 
 ```bash
-pip install pygluon
+pip install stability-nexus
 ```
 
 ## Quick Start
 
 ```python
-from pygluon.reactors import GluonZReactor
-from pygluon.reactors.types import (
+from stability_nexus.gluon.reactors import GluonZReactor
+from stability_nexus.gluon.reactors.types import (
     GluonReaction,
     GluonZReactorParameters,
     GluonZReactorState,
