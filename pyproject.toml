@@ -4,9 +4,9 @@ build-backend = "hatchling.build"
 
 [project]
 dependencies = []
-name = "pygluon"
+name = "stability-nexus"
 version = "1.0.0"
-description = "Gluon simulator library for Python. Simulates the Gluon protocol's reactor mechanics including fission, fusion, and beta decay reactions."
+description = "Stability Nexus multi-protocol simulation library."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
@@ -25,13 +25,13 @@ classifiers = [
 Homepage = "https://stability.nexus"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/pygluon"]
+packages = ["src/stability_nexus"]
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["linux-64"]
 
 [tool.pixi.pypi-dependencies]
-pygluon = { path = ".", editable = true }
+stability_nexus = { path = ".", editable = true }
 
 [tool.pixi.tasks]

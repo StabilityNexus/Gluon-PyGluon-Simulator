@@ -1,8 +1,8 @@
 """Tests for gluon."""
 
-from gluon import __version__
+from stability_nexus.gluon import __version__
 
 
 def test_version() -> None:
     """Test that version is set."""
-    assert __version__ == "0.1.0"
+    assert __version__ == "1.0.0"

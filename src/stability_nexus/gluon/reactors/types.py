@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from typing import Sequence, Generic, TypeVar
 from enum import Enum, unique
 
-Basecoin = float
+from stability_nexus.types import Basecoin
+
 Neutron = float
 Proton = float
 BasecoinPerNeutron = float
