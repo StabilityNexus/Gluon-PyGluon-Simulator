@@ -33,5 +33,25 @@ platforms = ["linux-64"]
 
 [tool.pixi.pypi-dependencies]
 stability_nexus = { path = ".", editable = true }
+python-semantic-release = "*"
 
 [tool.pixi.tasks]
+build = "python -m build"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+branch = "main"
+tag_format = "v{version}"
+
+[tool.semantic_release.branches.main]
+match = "main"
+prerelease = false
+
+[tool.semantic_release.changelog]
+changelog_file = "CHANGELOG.md"
+mode = "update"
+
+[tool.semantic_release.commit_parser_options]
+allowed_tags = ["build", "chore", "ci", "docs", "feat", "fix", "perf", "refactor", "style", "test"]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf"]
